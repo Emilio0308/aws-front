@@ -4,11 +4,10 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { login } from "../redux/slices/user.slice";
 
-
 const Login = () => {
   const [userId, setUserId] = useState(null);
-  const navigate = useNavigate()
-  const dispatch = useDispatch()
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const submitLogin = (e) => {
     e.preventDefault();
@@ -20,8 +19,8 @@ const Login = () => {
       .post("login", data)
       .then((res) => {
         console.log(res.data);
-        dispatch(login(res.data.userByEmail))
-        navigate('/track-media-dashboard')
+        dispatch(login(res.data.userByEmail));
+        navigate("/track-media-dashboard");
         localStorage.setItem("userId", res.data.id);
       })
       .catch((err) => console.log(err));
@@ -30,6 +29,9 @@ const Login = () => {
   return (
     <main className="w-full min-h-screen grid content-center">
       <section className="p-3 max-w-md mx-auto w-full">
+        <div className="flex justify-center items-center">
+          <img src="/logo2.png" alt="Track-Media-Logo" />
+        </div>
         <h2 className="text-3xl py-10">Iniciar sesion</h2>
         <form onSubmit={submitLogin} className="grid gap-5">
           <div className="grid gap-5 text-white">

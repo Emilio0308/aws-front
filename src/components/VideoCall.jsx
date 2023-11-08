@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import io from "socket.io-client";
-import { BsFillTelephoneXFill } from "react-icons/bs";
+import { BsCameraVideoFill, BsFillTelephoneXFill } from "react-icons/bs";
 import { backendconfig } from "../utils/backend";
 
 const VideoCall = () => {
@@ -29,6 +29,7 @@ const VideoCall = () => {
   const [online, setOnline] = useState();
   const [localeStream, setlocaleStream] = useState();
   const [roomMeetData, setRoomMeetData] = useState({});
+  const [isCalling, setIsCalling] = useState(false);
 
   useEffect(() => {
     socket.on("connect", () => {
@@ -88,6 +89,7 @@ const VideoCall = () => {
     if (event.streams && event.streams[0]) {
       console.log(event.streams[0]);
       guest.srcObject = event.streams[0];
+      setIsCalling(true);
     } else {
       if (!inboundStream) {
         inboundStream = new MediaStream();
@@ -176,8 +178,17 @@ const VideoCall = () => {
 
   return (
     <section className="mb-20 w-full max-w-[1200px] mx-auto">
+      <div className="flex justify-between items-center">
+        <h2 className="text-4xl tracking-[4px] font-semibold py-3 text-cyan-800">
+          WELCOME TO TRACK-MEDIA
+        </h2>
+        <div className="">
+          <img className="h-[90px]" src="/logo2.png" alt="Track-Media-Logo" />
+        </div>
+      </div>
+      <hr className="h-[3px] bg-gray-700 mb-5" />
       <div id="dashboard">
-        <div className="capitalize text-2xl font-medium flex items-center gap-3">
+        <div className="capitalize text-xl font-medium flex items-center gap-3 text-gray-700">
           {online ? "conectado" : "desconectado"}
           <div
             className={`w-[20px] h-[20px] rounded-full ${
@@ -188,23 +199,39 @@ const VideoCall = () => {
       </div>
       <div
         id="stream"
-        className="relative  h-[520px] p-3 bg-black my-5 flex justify-center rounded-md shadow-lg shadow-black"
+        className="relative h-[520px] bg-gray-700 my-5 flex justify-center items-center rounded-2xl shadow-lg shadow-black"
       >
         <video
           style={{ width: 640, height: 480 }}
-          className="rounded-lg"
+          className="rounded-lg bg-black"
           id="guest"
           autoPlay
         ></video>
-        <video
-          className="bg-gray-600 absolute right-0 bottom-0 translate-y-[50%] rounded-lg"
-          id="client"
-          style={{ width: 320, height: 240 }}
-          autoPlay
-        ></video>
+        <div
+          className={`text-[150px] text-white absolute top-[50%] translate-y-[-50%] ${
+            isCalling ? "invisible" : "visible"
+          }`}
+        >
+          <BsCameraVideoFill />
+        </div>
+        <div className="bg-black absolute right-0 bottom-0 translate-y-[50%] rounded-lg flex justify-center items-center">
+          <video
+            className=""
+            id="client"
+            style={{ width: 320, height: 240 }}
+            autoPlay
+          ></video>
+          <div
+            className={`text-[60px] text-white absolute z-50 ${
+              localeStream ? "invisible" : "visible"
+            }`}
+          >
+            <BsCameraVideoFill />
+          </div>
+        </div>
         <button
           onClick={hangUp}
-          className="text-3xl bg-red-600 p-5 rounded-full absolute left-2 bottom-2"
+          className="text-2xl bg-red-600 p-5 rounded-full absolute left-2 bottom-2"
           id="hang-up"
         >
           <BsFillTelephoneXFill />

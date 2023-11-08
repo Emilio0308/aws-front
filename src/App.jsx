@@ -1,9 +1,12 @@
 import { Route, Routes } from "react-router-dom";
 import Login from "./pages/Login";
-import { Suspense, lazy } from "react";
 import Loading from "./components/Loading";
+import { Suspense, lazy } from "react";
+import { startservices } from "./utils/backend";
 const TrackMedia = lazy(() => import("./pages/TrackMedia"));
+
 function App() {
+  // startservices()
   return (
     <>
       <Routes>
@@ -11,7 +14,7 @@ function App() {
         <Route
           path="/track-media-dashboard"
           element={
-            <Suspense fallback={<Loading/>}>
+            <Suspense fallback={<Loading />}>
               <TrackMedia />
             </Suspense>
           }
