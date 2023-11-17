@@ -1,7 +1,8 @@
 import axios from "axios";
 
 export const backendconfig = axios.create({
-  baseURL: "https://api-gateway-g8ad.onrender.com/apigateway/v1/",
+  // baseURL: "https://api-gateway-g8ad.onrender.com/apigateway/v1/",
+  baseURL: "http://localhost:3000/apigateway/v1/",
 });
 
 export const startservices = () => {

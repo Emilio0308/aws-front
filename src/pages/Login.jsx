@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { backendconfig } from "../utils/backend";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { login } from "../redux/slices/user.slice";
 
@@ -18,8 +18,8 @@ const Login = () => {
     backendconfig
       .post("login", data)
       .then((res) => {
-        console.log(res.data);
-        dispatch(login(res.data.userByEmail));
+        const { JWT, userByEmail } = res.data;
+        dispatch(login({ ...userByEmail, JWT }));
         navigate("/track-media-dashboard");
         localStorage.setItem("userId", res.data.id);
       })
@@ -52,6 +52,12 @@ const Login = () => {
             login
           </button>
         </form>
+        <div className="my-5 grid grid-cols-2">
+          <span>No tiene una cuenta..?</span>
+          <Link to={'/registro'} className="text-blue-700 tracking-wider">
+            registrarse
+          </Link>
+        </div>
       </section>
 
       {/* <section>

@@ -83,7 +83,6 @@ const ChatsPages = () => {
 
   useEffect(() => {
     socket.on("chat menssage", (message) => {
-      console.log(message);
       dispatch(changeCurrentChat(message.currentChat));
     });
   }, [socket]);
@@ -95,7 +94,7 @@ const ChatsPages = () => {
   return (
     <section className="max-w-[1200px] mx-auto w-full">
       <div>{online ? "usuario conectado" : "no conectado"}</div>
-      <h3 className="text-xl font-medium">Bienvenido {name}</h3>
+      <h3 className="text-xl font-medium my-10">Bienvenid@ {name}</h3>
       <section className="grid grid-cols-[1fr,_auto]">
         <aside className="w-full p-3">
           {currentChat ? (
@@ -105,7 +104,7 @@ const ChatsPages = () => {
           )}
           {/* <ChatBox userName={name} sendMensage={sendMensage} /> */}
         </aside>
-        <aside className="w-44 bg-gray-700 rounded-lg shadow-lg shadow-black min-h-[450px] grid gap-3 content-start py-4">
+        <aside className="w-48 bg-gray-700 rounded-lg shadow-lg shadow-black min-h-[450px] max-h-[500px] overflow-y-auto grid gap-3 content-start py-4">
           {contacts.map((contact) => (
             <div
               className="grid grid-cols-[1fr,_45px] gap-2 px-1"

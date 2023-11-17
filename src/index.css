@@ -1,3 +1,24 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Ancho de la barra de desplazamiento */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+/* Alto de la barra de desplazamiento en el eje vertical */
+::-webkit-scrollbar-thumb {
+  height: 50px;
+}
+
+/* Color de la barra de desplazamiento */
+::-webkit-scrollbar-thumb {
+    background-color: rgb(44, 44, 44);
+    border-radius: 15px;
+}
+
+/* Fondo de la barra de desplazamiento */
+::-webkit-scrollbar-track {
+    border-radius: 0 15px 15px 0;
+}

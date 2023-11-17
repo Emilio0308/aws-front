@@ -9,6 +9,7 @@ const initialState = {
   currentRoomMeet: localUser.currentRoomMeet || null,
   email: localUser.email || null,
   contacts: localUser.contacts || null,
+  JWT: localUser.JWT || null,
 };
 
 const user = createSlice({
@@ -16,8 +17,8 @@ const user = createSlice({
   initialState,
   reducers: {
     login: (state, action) => {
-      const { id, name, email } = action.payload;
-      const newState = { ...state, id, name, email };
+      const { id, name, email, JWT } = action.payload;
+      const newState = { ...state, id, name, email, JWT };
       localStorage.setItem("user", JSON.stringify(newState));
       return newState;
     },
